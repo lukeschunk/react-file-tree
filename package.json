@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/lukeschunk/react-file-tree",
   "dependencies": {
+    "mx-react-components": "^2.3.3",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "velocity-animate": "^1.2.3"

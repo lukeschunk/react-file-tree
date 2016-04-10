@@ -1,14 +1,23 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
+const { Tree } = require('../src/Index')
 
-const Test = React.createClass({
+const App = React.createClass({
+  _handleChildClick () {
+    console.log("this is where you can handle the child click!")
+  },
+
   render () {
     return (
-      <div>
-        <h1>TESTING ONE TWO THREE</h1>
-      </div>
+      <Tree
+        heading='Tree Demo'
+        handleChildClick={this._handleChildClick}
+        contents={[
+          (<Tree heading='One Level contents' contents={[(<Tree heading='contents Tree' contents={['one', 'two', 'three']}/>), 'three']} />), (<Tree heading='New Tree' contents={['one', 'two', 'three']} />), 'Lukey', 'Another One', 'Final one']}
+      >
+      </Tree>
     )
   }
 });
 
-ReactDOM.render(<Test />, document.getElementById('demo'));
+ReactDOM.render(<App />, document.getElementById('demo'));
