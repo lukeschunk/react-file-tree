@@ -26,55 +26,39 @@ const App = React.createClass({
                       // icon: 'document'
                     },
                     {
-                      parentId: '2',
-                      id: '4',
                       name: 'Third Level Header Two',
                       // icon: 'document'
                     },
                     {
-                      parentId: '2',
-                      id: '5',
                       name: 'Third Level Header Three',
                       icon: 'document'
                     }
                   ]
                 },
                 {
-                  parentId: '0',
-                  id: '6',
                   name: 'Second Level Header TwXXXo',
                   icon: 'list-view',
                   children: [
                     {
-                      parentId: '6',
-                      id: '7',
                       name: 'Third Level Header Four',
                       icon: 'document'
                     },
                     {
-                      parentId: '6',
-                      id: '8',
                       name: 'Third Level Header Five',
                       icon: 'document'
                     }
                   ]
                 },
                 {
-                  parentId: null,
-                  id: '9',
                   name: 'Second Level Header Three',
                   icon: 'document',
                   children: []
                 },
                 {
-                  parentId: '0',
-                  id: '10',
                   name: 'Second Level Header Four',
                   icon: 'list-view',
                   children: [
                     {
-                      parentId: '10',
-                      id: '11',
                       name: 'Third Level Header 6',
                       icon: 'document'
                     }
