@@ -14,34 +14,34 @@ const App = React.createClass({
         items={
           [
             {
-              name: 'main Header Title One',
+              name: 'Demo File Structure',
               // icon: 'list-view',
               children: [
                 {
-                  name: 'Second Level Header One',
+                  name: 'Second Level Folder',
                   // icon: 'list-view',
                   children: [
                     {
-                      name: 'Third Level Header One',
+                      name: 'file-demo.js',
                       // icon: 'document'
                     },
                     {
-                      name: 'Third Level Header Two',
+                      name: 'another file.html',
                       // icon: 'document'
                     },
                     {
-                      name: 'Third Level Header Three',
+                      name: 'and a third file',
                       icon: 'document'
                     }
                   ]
                 },
                 {
-                  name: 'Second Level Header TwXXXo',
+                  name: 'Second Level Header Two',
                   icon: 'list-view',
                   children: [
                     {
-                      name: 'Third Level Header Four',
-                      icon: 'document'
+                      name: 'a file with the icon specified',
+                      icon: 'check'
                     },
                     {
                       name: 'Third Level Header Five',
