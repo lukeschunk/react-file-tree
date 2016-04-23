@@ -21,4 +21,4 @@ A super simple react component file tree.
 ```
 
 ### Demo
-[FileTree.gif]
+https://raw.githubusercontent.com/lukeschunk/react-file-tree/master/FileTree.gif
