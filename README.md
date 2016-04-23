@@ -1,5 +1,5 @@
 # react-file-tree
-A super simple react component file tree. 
+A super simple react component file tree.
 
 ### Installation
 
@@ -21,3 +21,4 @@ A super simple react component file tree.
 ```
 
 ### Demo
+[FileTree.gif]
