@@ -2,119 +2,101 @@ const React = require('react');
 
 const { Icon, Styles } = require('mx-react-components');
 
-
 const Tree = React.createClass({
   propTypes: {
-    childIconType: React.PropTypes.string,
-    contents: React.PropTypes.array,
-    handleChildClick: React.PropTypes.func,
-    heading: React.PropTypes.string.isRequired,
+    handleChildClick: React.PropTypes.func.isRequired,
     iconColor: React.PropTypes.string,
-    parentIconType: React.PropTypes.string
+    items: React.PropTypes.array
   },
 
   getDefaultProps () {
     return {
-      childIconType: 'document',
-      iconColor: Styles.Colors.PRIMARY,
-      parentIconType: 'list-view'
+      iconColor: Styles.Colors.PRIMARY
     };
   },
 
   getInitialState () {
-    return {
-      triangleOrientation: 'rotate(-90deg)',
-      displayChildren: false
-    };
+    return {};
   },
 
-  _handleParentClick () {
-    const triangleOrientation = this.state.triangleOrientation === 'rotate(-90deg)' ? 'rotate(0deg)' : 'rotate(-90deg)';
-
+  _handleParentClick (id, children) {
     this.setState({
-      triangleOrientation,
-      displayChildren: !this.state.displayChildren
+      [id]: !this.state[id]
+    });
+
+    if (!children || !children.length) {
+      this.props.handleChildClick();
+    }
+  },
+
+  _renderTree (level, id = 0) {
+    const levelId = id + 1;
+    const styles = this.styles();
+    let childId = 0;
+
+    return level.map((obj, i) => {
+      childId++;
+
+      const objectNameId = levelId + '-' + childId + '-' + obj.name.replace(/\s+/g, '-').toLowerCase();
+
+      return (
+        <ul key={i} style={styles.list}>
+          <li key={obj.id}>
+            <div onClick={this._handleParentClick.bind(null, objectNameId, obj.children)} style={styles.parent}>
+              {obj.children && obj.children.length ? (
+                <div style={styles.triangle}>
+                  <Icon size={20} type={this.state[objectNameId] ? 'caret-down' : 'caret-right'} />
+                </div>
+              ) : null}
+              <Icon
+                size={25}
+                style={styles.icon}
+                type={obj.icon || (obj.children && obj.children.length ? 'list-view' : 'document')}
+              />
+              <span style={styles.name}>
+                {obj.name}
+              </span>
+            </div>
+            {this.state[objectNameId] && obj.children && obj.children.length ? this._renderTree(obj.children, levelId) : null}
+          </li>
+        </ul>
+      );
     });
   },
 
   render () {
-    const styles = this.styles();
-
     return (
-      <div className='react-file-tree'>
-        <div onClick={this._handleParentClick} style={styles.parent}>
-          <div style={styles.triangle}>▾</div>
-          <Icon
-            size={20}
-            style={{ color: this.props.iconColor }}
-            type={this.props.parentIconType}
-          />
-          <span style={styles.heading}>{this.props.heading}</span>
-        </div>
-        {this.state.displayChildren ? (
-          <div style={styles.children}>
-            <ul style={styles.list}>
-              {this.props.contents.map((node, index) => {
-                return (
-                  <div key={index} style={styles.parent}>
-                    {typeof node === 'string' ? (
-                      <div style={styles.test} onClick={this.props.handleChildClick}>
-                        <Icon
-                          size={20}
-                          style={{ color: this.props.iconColor }}
-                          type='apple'/>
-                        <span style={styles.heading}>{node}</span>
-                      </div>
-                    ) : (<div>XXX{node}</div>)
-                    }
-                  </div>
-                );
-              })}
-            </ul>
-          </div>
-        ) : null }
+      <div className='tree'>
+        {this._renderTree(this.props.items)}
       </div>
     );
   },
 
   styles () {
     return {
-      heading: {
-        margin: 0,
-        display: 'inline-block',
-        marginLeft: 5,
-        marginTop: 10,
-        marginBottom: 8,
-        fontFamily: Styles.Fonts.THIN
-      },
-      iconHolder: {
-        border: '1px solid gray',
-        padding: 2,
-        borderRadius: 5,
-        display: 'inline-block'
+      icon: {
+        fill: this.props.iconColor
       },
       list: {
         listStyleType: 'none',
         margin: 0,
         paddingLeft: 20
       },
-      test: {
-        zIndex: 1000
-      },
       triangle: {
-        transform: this.state.triangleOrientation,
         display: 'inline-block',
         position: 'absolute',
-        left: '-20px',
-        top: 10
+        left: -20,
+        top: 3
       },
       parent: {
         cursor: 'pointer',
-        position: 'relative'
+        position: 'relative',
+        listStyleType: 'none',
+        fontFamily: Styles.Fonts.THIN,
+        margin: '15px 0'
       }
     };
   }
-
 });
 
 module.exports = Tree;
